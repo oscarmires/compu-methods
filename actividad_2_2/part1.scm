@@ -1,6 +1,12 @@
 ; Actividad 2.2: parte 1
 
-;; 3. Función roots
+;; 1. fahrenheit-to-celsius
+
+
+;; 2. sign
+
+
+;; 3. roots
 (define (roots a b c)
     (/ 
         (- (sqrt (- (expt b 2) (* 4 a c))) b)
@@ -8,10 +14,10 @@
     )
 )
 
-;; 4. Función bmi
+;; 4. bmi
 (define (bmiVal w h)
     (/ w (expt h 2))
-)
+)2
 
 (define (bmi w h)
     (define bmiResult (bmiVal w h))
@@ -23,3 +29,9 @@
         (else 'obese3)
     )
 )
+
+;; 6. factorial
+
+
+;; 10. positives
+
