@@ -48,4 +48,20 @@
 )
 
 ;; 6. deep-reverse
+  
+  
+(define (reverse lista l-reverse)
+    (cond
+        ((null? lista) l-reverse)
+        ((list? (car lista)) (reverse (cdr lista) (cons (reverse(car lista )'()) l-reverse)))
+        (else (reverse (cdr lista) (cons (car lista) l-reverse)))
+    )
+)
+(define (deep-reverse lista)
+    (cond
+        ((not(list? lista)) 'noEsLista)
+        ((null? lista) '())
+        (else(reverse lista '()))
+    )
+)
 
