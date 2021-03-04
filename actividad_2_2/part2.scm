@@ -1,7 +1,13 @@
 ; Actividad 2.2: parte 2
 
 ;; 1. insert
-
+(define (insert n lst)
+    (cond
+        ((null? lst) list n)
+        ((< n (car lst)) (cons n lst))
+        (else (cons (car lst) (insert n (cdr lst))))
+    )
+)
 
 ;; 3. rotate-left
 (define (isEmpty? list)
