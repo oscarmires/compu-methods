@@ -40,15 +40,20 @@
 )
 
 (define (rotate-left n lst)
+    (define shift 
+        (if (>= 0 n)
+            (modulo n (length lst))
+            (- (- (modulo n (length lst)) 1))
+        )
+    )
     (cond 
-        ((> n 0) (merge (rightSubArr n lst) (leftSubArr n lst)))
-        ((< n 0) (merge (rightSubArr (+ (length lst) n) lst) (leftSubArr (+ (length lst) n) lst)))
+        ((> shift 0) (merge (rightSubArr shift lst) (leftSubArr shift lst)))
+        ((< shift 0) (merge (rightSubArr (- (length lst) shift) lst) (leftSubArr (- (length lst) shift) lst)))
         (else lst)
     )
 )
 
 ;; 6. deep-reverse
-  
 (define (reverse lista l-reverse)
     (cond
         ((null? lista) l-reverse)
