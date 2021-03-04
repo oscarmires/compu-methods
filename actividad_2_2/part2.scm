@@ -49,7 +49,6 @@
 
 ;; 6. deep-reverse
   
-  
 (define (reverse lista l-reverse)
     (cond
         ((null? lista) l-reverse)
