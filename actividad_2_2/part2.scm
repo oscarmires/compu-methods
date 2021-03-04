@@ -41,15 +41,14 @@
 
 (define (rotate-left n lst)
     (define shift 
-        (if (>= 0 n)
+        (if (not (isEmpty? lst))
             (modulo n (length lst))
-            (- (- (modulo n (length lst)) 1))
         )
     )
     (cond 
-        ((> shift 0) (merge (rightSubArr shift lst) (leftSubArr shift lst)))
-        ((< shift 0) (merge (rightSubArr (- (length lst) shift) lst) (leftSubArr (- (length lst) shift) lst)))
-        (else lst)
+        ((= n 0) lst)
+        ((isEmpty? lst) '())
+        (else (merge (rightSubArr shift lst) (leftSubArr shift lst)))
     )
 )
 
