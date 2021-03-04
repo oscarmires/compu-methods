@@ -1,10 +1,18 @@
 ; Actividad 2.2: parte 1
 
 ;; 1. fahrenheit-to-celsius
-
+(define (fahrenheit-to-celsius f)
+    (/ (* 5 (- f 32)) 9)
+)
 
 ;; 2. sign
-
+(define (sign n)
+    (cond
+        ((< n 0) -1)
+        ((> n 0) 1)
+        (else 0)
+    )
+)
 
 ;; 3. roots
 (define (roots a b c)
