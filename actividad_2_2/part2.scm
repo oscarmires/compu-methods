@@ -16,17 +16,33 @@
     )    
 )
 
-(define (shift-left n tempLst lst)
+(define (leftSubArr n lst)
     (cond
-        ((> n 0) (shift-left (- n 1) (merge tempLst (car lst)) (cdr lst)))
-        ((< n 0) 'error)
-        (else (merge lst tempLst))
+        ((isEmpty? lst) '())
+        ((> n 0) (cons (car lst) (leftSubArr (- n 1) (cdr lst))))
+        (else '())
     )
 )
 
-(define (rotate-left n lst)
+(define (rightSubArr n lst)
     (cond
-        ((> n 0) (shift-left n '() lst)
+        ((isEmpty? lst) '())
+        ((> n 0) (rightSubArr (- n 1) (cdr lst)))
+        (else lst)
+    )
+)
+
+(define (length lst)
+    (cond
+        ((isEmpty? lst) 0)
+        (else (+ 1 (length (cdr lst))))
+    )    
+)
+
+(define (rotate-left n lst)
+    (cond 
+        ((> n 0) (merge (rightSubArr n lst) (leftSubArr n lst)))
+        ((< n 0) (merge (rightSubArr (+ (length lst) n) lst) (leftSubArr (+ (length lst) n) lst)))
         (else lst)
     )
 )
