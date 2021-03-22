@@ -145,7 +145,7 @@ public:
             currentRule = rules.getRule(c, this->currentState);
             // cout << currentRule.toString() << endl;
             if (currentRule.getNext() == 17) {
-                cout << token << "\t\t error" << endl;
+                cout << token << "\t\terror" << endl;
                 this->restart();
                 return;
             } else if (currentRule.getNext() == 18) {
@@ -194,6 +194,8 @@ int main() {
     automata.readSingleToken("1.1E-7");
     automata.readSingleToken("1.1e+7");
     automata.readSingleToken("-1.1e7");
+    automata.readSingleToken("// abc");
+    automata.readSingleToken("{");
 
     return 0;
 }
