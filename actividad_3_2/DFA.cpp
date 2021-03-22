@@ -196,6 +196,7 @@ int main() {
     automata.readSingleToken("-1.1e7");
     automata.readSingleToken("// abc");
     automata.readSingleToken("{");
+    automata.readSingleToken(".");
 
     return 0;
 }
