@@ -83,7 +83,7 @@ public:
 
         file.close();
     }
-    
+        
     Rule getRule(char character, int currentState) {
         if (this->rules.find(character) != rules.end()) {
             // si la key existe
