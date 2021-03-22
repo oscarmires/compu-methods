@@ -100,11 +100,63 @@ class Automata {
 private:
     RuleSet rules;
     int currentState;
+    vector<string> stateNames {
+        "", 
+        "entero", 
+        "real", 
+        "real", 
+        "real", 
+        "real", 
+        "real", 
+        "variable",
+        "asignación",
+        "suma",
+        "resta",
+        "multiplicación",
+        "división",
+        "potencia",
+        "comentario",
+        "abre paréntesis",
+        "cierra paréntesis",
+        "error",
+        "token end"
+    };
 public:
-    Automata() {}
+    Automata() {
+        this->currentState = 0;
+    }
+
+    void loadRules(string path) {
+        try {
+            this->rules.loadFromFile(path);
+        } catch(const runtime_error& re) {
+            throw re;
+        }
+    }
 
     void readText(string path) {
         // leer un código
+    }
+
+    void readSingleToken(string token) {
+        Rule currentRule;
+        for (char c : token) {
+            currentRule = rules.getRule(c, this->currentState);
+            cout << currentRule.toString() << endl;
+            if (currentRule.getNext() == 17) {
+                cout << token << "\t\t error" << endl;
+                this->restart();
+                return;
+            } else if (currentRule.getNext() == 18) {
+                cout << token << "\t\t" << stateNames[currentState] << endl;
+                this->restart();
+                return;
+            } else {
+                this->currentState = currentRule.getNext();
+            }
+        }
+        cout << token << "\t\t" << stateNames[currentState] << endl;
+        this->restart();
     }
 
     void restart() {
@@ -114,11 +166,18 @@ public:
 
 int main() {
     RuleSet rules;
+
     try {
-        rules.loadFromFile("DFAtable.txt");
+        rules.loadFromFile("DFAtable.csv");
     } catch(const runtime_error& re) {
         std::cerr << re.what() << '\n';
     }
-    cout << rules.getRule('=', 18).toString() << endl;
+
+    cout << rules.getRule('a', 0).toString() << endl;
+    /*  
+
+    Automata automata;
+    
+    automata.readSingleToken("hola"); */
     return 0;
 }
