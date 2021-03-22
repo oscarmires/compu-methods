@@ -48,11 +48,31 @@ public:
     RuleSet() {}
 
     void loadFromFile(string path) {
-        // leer la tabla
-    }
+        ifstream file;
+        string line, cell, print;
+        stringstream ss;
+        vector<char> chars;
+        
+        file.open(path);
+        if (file.fail()) {
+            throw runtime_error("Cannot read file");
+        }
 
+        /*
+            leer cada caracter
+        */
+
+        file.close();
+    }
+    
     Rule getRule(char character, int currentState) {
-        return this->rules[character][currentState];
+        if (this->rules.find(character) != rules.end()) {
+            // si la key existe
+            return this->rules[character][currentState];
+        } else {
+            // si no existe, devolver regla error
+            return Rule(character, currentState, 17, 1);
+        }
     }
 };
 
