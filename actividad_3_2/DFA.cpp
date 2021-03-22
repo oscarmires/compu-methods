@@ -12,15 +12,13 @@ private:
     char character;
     int state, 
         next;
-    bool print;
 public:
     Rule() {}
 
-    Rule(char character, int state, int next, bool print) {
+    Rule(char character, int state, int next) {
         this->character = character;
         this->state = state;
         this->next = next;
-        this->print = print;
     }
 
     char getCharacter() {
@@ -35,8 +33,8 @@ public:
         return this->next;
     }
 
-    bool getPrint() {
-        return this->print;
+    string toString() {
+        return "State: " + to_string(this->state) + ", Char: '" + this->character + "' -> " + to_string(this->next);;
     }
 };
 
@@ -58,9 +56,30 @@ public:
             throw runtime_error("Cannot read file");
         }
 
-        /*
-            leer cada caracter
-        */
+        // leer encabezado (caracteres)
+        getline(file, line);
+        getline(file, line);
+        ss << line;
+        while (getline(ss, cell, ',')) {
+            chars.push_back(cell[0]);
+        }
+        ss.str(string());
+        ss.clear();
+
+        // leer cuerpo de tabla (reglas)
+        int stateNum = 0;
+        while (getline(file, line)) {
+            ss << line;
+            for (int i = 0; i < chars.size(); i++) {
+                getline(ss, cell, ',');
+                this->rules[chars[i]].push_back(Rule(chars[i], stateNum, stoi(cell) ));
+            }
+
+            stateNum++;
+
+            ss.str(string());
+            ss.clear();
+        }
 
         file.close();
     }
@@ -71,7 +90,7 @@ public:
             return this->rules[character][currentState];
         } else {
             // si no existe, devolver regla error
-            return Rule(character, currentState, 17, 1);
+            return Rule(character, currentState, 17);
         }
     }
 };
@@ -92,3 +111,14 @@ public:
         this->currentState = 0;
     }
 };
+
+int main() {
+    RuleSet rules;
+    try {
+        rules.loadFromFile("DFAtable.txt");
+    } catch(const runtime_error& re) {
+        std::cerr << re.what() << '\n';
+    }
+    cout << rules.getRule('=', 18).toString() << endl;
+    return 0;
+}
