@@ -139,10 +139,11 @@ public:
     }
 
     void readSingleToken(string token) {
+        token += ' ';
         Rule currentRule;
         for (char c : token) {
             currentRule = rules.getRule(c, this->currentState);
-            cout << currentRule.toString() << endl;
+            // cout << currentRule.toString() << endl;
             if (currentRule.getNext() == 17) {
                 cout << token << "\t\t error" << endl;
                 this->restart();
@@ -165,19 +166,34 @@ public:
 };
 
 int main() {
-    RuleSet rules;
-
-    try {
-        rules.loadFromFile("DFAtable.csv");
-    } catch(const runtime_error& re) {
-        std::cerr << re.what() << '\n';
-    }
-
-    cout << rules.getRule('a', 0).toString() << endl;
-    /*  
 
     Automata automata;
-    
-    automata.readSingleToken("hola"); */
+    automata.loadRules("DFAtable.csv");
+
+    automata.readSingleToken("");
+    automata.readSingleToken("a");
+    automata.readSingleToken("abc_12");
+    automata.readSingleToken("abc12_");
+    automata.readSingleToken("1");
+    automata.readSingleToken("9999");
+    automata.readSingleToken("2.");
+    automata.readSingleToken("2.1");
+    automata.readSingleToken(".12");
+    automata.readSingleToken("-10");
+    automata.readSingleToken("+");
+    automata.readSingleToken("-");
+    automata.readSingleToken("*");
+    automata.readSingleToken("/");
+    automata.readSingleToken("^");
+    automata.readSingleToken("=");
+    automata.readSingleToken("(");
+    automata.readSingleToken(")");
+    automata.readSingleToken("1.1e");
+    automata.readSingleToken("1.1e7");
+    automata.readSingleToken("1.1E7");
+    automata.readSingleToken("1.1E-7");
+    automata.readSingleToken("1.1e+7");
+    automata.readSingleToken("-1.1e7");
+
     return 0;
 }
