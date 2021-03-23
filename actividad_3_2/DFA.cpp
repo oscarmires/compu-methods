@@ -100,13 +100,13 @@ class Automata {
 private:
     RuleSet rules;
     int currentState;
-    vector<string> stateNames {
+    string stateNames[19] {
         "", 
         "entero", 
         "real", 
         "real", 
-        "real", 
-        "real", 
+        "", 
+        "", 
         "real", 
         "variable",
         "asignación",
@@ -119,7 +119,7 @@ private:
         "abre paréntesis",
         "cierra paréntesis",
         "error",
-        "token end"
+        ""
     };
 public:
     Automata() {
