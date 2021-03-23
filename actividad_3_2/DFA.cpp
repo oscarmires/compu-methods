@@ -134,8 +134,64 @@ public:
         }
     }
 
+    void AnalisisCaracteres(string dato)
+    {
+        Rule r1;
+
+        for (int i = 0; i < dato.length()-1; i++)
+        {	
+            r1 = rules.getRule(dato[i], currentState);
+            // cout << r1.toString() << endl;
+            if (r1.getNext() == 18) {
+                cout << "\t\t\t\t" << this->stateNames[currentState] << endl;
+                restart();
+                r1 = rules.getRule(dato[i], currentState);
+            }
+            // r2 = rules.getRule(dato[i+1], currentState);
+            this->currentState = r1.getNext();
+            if (currentState != 0) { 
+                cout << dato[i];
+            }
+            
+            /*
+            if (r2.getNext() == 18 && i != dato.length()-1) {
+                cout << token << "\t\t" << this->stateNames[currentState] << endl;
+                restart();
+                token = "";
+            } */
+        
+        }
+        // cout << currentState << endl;
+        cout << dato[dato.length()-1] << "\t\t\t\t" << this->stateNames[currentState] << endl;
+        restart();
+    }
+    
     void readText(string path) {
         // leer un código
+
+        ifstream ficheroEntrada;
+        string dato;
+
+        ficheroEntrada.open(path, ios::in);
+        if (ficheroEntrada.is_open()) {
+            while (!ficheroEntrada.eof())
+            {
+
+                stringstream ss(dato);
+                string line;
+                stringstream sl(line);
+
+                while (getline(ficheroEntrada, dato))
+                {
+                        //cout << "nuevo ciclo" << endl;
+                        AnalisisCaracteres(dato.c_str());
+
+                }
+                cout << endl;
+            }
+            ficheroEntrada.close();
+        }
+        else cout << "Fichero inexistente" << endl;
     }
 
     void readSingleToken(string token) {
@@ -169,7 +225,9 @@ int main() {
 
     Automata automata;
     automata.loadRules("DFAtable.csv");
+    automata.readText("TextFile1.txt");
 
+/*
     automata.readSingleToken("");
     automata.readSingleToken("a");
     automata.readSingleToken("abc_12");
@@ -197,6 +255,7 @@ int main() {
     automata.readSingleToken("// abc");
     automata.readSingleToken("{");
     automata.readSingleToken(".");
+*/
 
     return 0;
 }
