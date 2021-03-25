@@ -101,12 +101,12 @@ private:
     RuleSet rules;
     int currentState;
     string stateNames[19] {
-        "", 
+        "",
         "entero", 
         "real", 
         "real", 
-        "", 
-        "", 
+        "real", 
+        "real", 
         "real", 
         "variable",
         "asignación",
@@ -137,20 +137,28 @@ public:
     void AnalisisCaracteres(string dato)
     {
         Rule r1;
-        for (int i = 0; i < dato.length()-1; i++)
-        {	
+        string token = "";
+        for (int i = 0; i < dato.length(); i++) {	
             r1 = rules.getRule(dato[i], currentState);
-            if (r1.getNext() == 18) {
-                cout << "\t\t\t\t" << this->stateNames[currentState] << endl;
+            cout << r1.toString() << endl;
+            if (r1.getNext() == 18) { // si llega a final del token
+                cout << token << "\t\t\t\t" << this->stateNames[currentState] << endl;
+                token = "";
                 restart();
                 r1 = rules.getRule(dato[i], currentState);
             }
             this->currentState = r1.getNext();
-            if (currentState != 0) { 
-                cout << dato[i];
+            if (currentState != 0) {  // si ya comenzó token (esto para ignorar espacios previos)
+                token += dato[i];
             }
         }
-        cout << dato[dato.length()-1] << "\t\t\t\t" << this->stateNames[currentState] << endl;
+        
+        // si terminó como un punto aislado, marcar como error
+        if (currentState == 2 && token == ".") currentState = 17;
+
+        // imprimir último token
+        cout << token << "\t\t\t\t" << this->stateNames[currentState] << endl;
+        token = "";
         restart();
     }
     
@@ -180,12 +188,13 @@ public:
         else cout << "Fichero inexistente" << endl;
     }
 
+    // Función para probar tokens individuales
     void readSingleToken(string token) {
+        
         token += ' ';
         Rule currentRule;
         for (char c : token) {
             currentRule = rules.getRule(c, this->currentState);
-            // cout << currentRule.toString() << endl;
             if (currentRule.getNext() == 17) {
                 cout << token << "\t\terror" << endl;
                 this->restart();
@@ -212,36 +221,5 @@ int main() {
     Automata automata;
     automata.loadRules("DFAtable.csv");
     automata.readText("TextFile1.txt");
-
-/*
-    automata.readSingleToken("");
-    automata.readSingleToken("a");
-    automata.readSingleToken("abc_12");
-    automata.readSingleToken("abc12_");
-    automata.readSingleToken("1");
-    automata.readSingleToken("9999");
-    automata.readSingleToken("2.");
-    automata.readSingleToken("2.1");
-    automata.readSingleToken(".12");
-    automata.readSingleToken("-10");
-    automata.readSingleToken("+");
-    automata.readSingleToken("-");
-    automata.readSingleToken("*");
-    automata.readSingleToken("/");
-    automata.readSingleToken("^");
-    automata.readSingleToken("=");
-    automata.readSingleToken("(");
-    automata.readSingleToken(")");
-    automata.readSingleToken("1.1e");
-    automata.readSingleToken("1.1e7");
-    automata.readSingleToken("1.1E7");
-    automata.readSingleToken("1.1E-7");
-    automata.readSingleToken("1.1e+7");
-    automata.readSingleToken("-1.1e7");
-    automata.readSingleToken("// abc");
-    automata.readSingleToken("{");
-    automata.readSingleToken(".");
-*/
-
     return 0;
 }
