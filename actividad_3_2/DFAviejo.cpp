@@ -140,7 +140,6 @@ public:
         string token = "";
         for (int i = 0; i < dato.length(); i++) {	
             r1 = rules.getRule(dato[i], currentState);
-            cout << r1.toString() << endl;
             if (r1.getNext() == 18) { // si llega a final del token
                 cout << token << "\t\t\t\t" << this->stateNames[currentState] << endl;
                 token = "";
@@ -162,13 +161,13 @@ public:
         restart();
     }
     
-    void readText(string path) {
+    void lexerAritmetico(string archivo) {
         // leer un código
 
         ifstream ficheroEntrada;
         string dato;
 
-        ficheroEntrada.open(path, ios::in);
+        ficheroEntrada.open(archivo, ios::in);
         if (ficheroEntrada.is_open()) {
             while (!ficheroEntrada.eof())
             {
@@ -220,6 +219,6 @@ int main() {
 
     Automata automata;
     automata.loadRules("DFAtable.csv");
-    automata.readText("TextFile1.txt");
+    automata.lexerAritmetico("TextFile1.txt");
     return 0;
 }
