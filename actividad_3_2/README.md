@@ -8,3 +8,8 @@ Para compilar con g++:
 ```
 g++ -std=c++17 DFA.cpp 
 ```
+
+Si quieres leer un archivo de texto (.txt) distinto al de este repositorio, cambia el nombre del archivo en la línea 222.
+```
+automata.lexerAritmetico("laDireccionDeTuArchivo.txt");
+```
