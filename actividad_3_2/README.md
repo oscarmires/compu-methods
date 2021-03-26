@@ -13,3 +13,6 @@ Si quieres leer un archivo de texto (.txt) distinto al de este repositorio, camb
 ```
 automata.lexerAritmetico("laDireccionDeTuArchivo.txt");
 ```
+
+Para más información, véase nuestro manual de uso: [aquí va el link]
+Video demostrativo: https://www.youtube.com/watch?v=Ml4JY6OI4-o
