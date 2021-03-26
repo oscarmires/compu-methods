@@ -34,7 +34,7 @@ public:
     }
 
     string toString() {
-        return "State: " + to_string(this->state) + ", Char: '" + this->character + "' -> " + to_string(this->next);;
+        return "State: " + to_string(this->state) + ", Char: '" + this->character + "' -> " + to_string(this->next);
     }
 };
 
