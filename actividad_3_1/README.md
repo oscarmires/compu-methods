@@ -6,7 +6,7 @@ Grupo 1
 
 | No. | Solución |
 | --- | -------- |
-| 4a | aaλ, bbλ, aab, bbb, aaab, bbab  C)  |
+| 4a | aaλ, bbλ, aab, bbb, aaab, bbab |
 | 4b | aaaaaa, aaaabb, aabbbb, bbbbbb, bbbbaa, bbaaaa |
 | 4c | λλλ, λλb, λbb, bbb, bbλ, bλλ, λab, abλ, bab, abb, λ, b, ab |
 | 4d | aaaa, aabb, bbbb, bbaa, aa, bb |
