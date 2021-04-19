@@ -109,7 +109,7 @@ private:
         "real", 
         "real", 
         "variable",
-        "assign",
+        "assignment",
         "addition",
         "subtraction",
         "multiplication",
