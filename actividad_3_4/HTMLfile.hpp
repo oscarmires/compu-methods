@@ -11,6 +11,7 @@ public:
     HTMLfile(string path);
     void insertSpan(string token, string htmlClass);
     void newLine();
+    void space();
     void tab();
     void writeAndClose();
 };

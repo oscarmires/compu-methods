@@ -147,6 +147,24 @@ public:
         return false;
     }
 
+    void exportToken(string &token) {
+        /*
+            Se utiliza al final de un token o al final de una línea
+            para imprimir el token y guardarlo en un html
+        */
+
+        // si terminó como un punto aislado, marcar como error
+        if (currentState == 2 && token == ".") currentState = 17;
+
+        if (isReservedKeyword(token)) {
+            cout << token << "\t\t\t\t" << "reserved-keyword" << endl;
+        } else {
+            cout << token << "\t\t\t\t" << this->stateNames[currentState] << endl;
+        }
+        token = "";
+        restart();
+    }
+
     void AnalisisCaracteres(string dato)
     {
         Rule r1;
@@ -154,13 +172,7 @@ public:
         for (int i = 0; i < dato.length(); i++) {	
             r1 = rules.getRule(dato[i], currentState);
             if (r1.getNext() == 18) { // si llega a final del token
-                if (isReservedKeyword(token)) {
-                    cout << token << "\t\t\t\t" << "reserved-keyword" << endl;
-                } else {
-                    cout << token << "\t\t\t\t" << this->stateNames[currentState] << endl;
-                }
-                token = "";
-                restart();
+                exportToken(token);
                 r1 = rules.getRule(dato[i], currentState);
             }
             this->currentState = r1.getNext();
@@ -169,13 +181,8 @@ public:
             }
         }
         
-        // si terminó como un punto aislado, marcar como error
-        if (currentState == 2 && token == ".") currentState = 17;
-
         // imprimir último token
-        cout << token << "\t\t\t\t" << this->stateNames[currentState] << endl;
-        token = "";
-        restart();
+        exportToken(token);
     }
     
     void lexerAritmetico(string archivo) {

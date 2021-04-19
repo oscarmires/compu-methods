@@ -25,6 +25,10 @@ void HTMLfile::newLine() {
     content += "<br>";
 }
 
+void HTMLfile::space() {
+    content += "&nbsp;";
+}
+
 void HTMLfile::tab() {
     content += "&nbsp;&nbsp;&nbsp;&nbsp;";
 }
