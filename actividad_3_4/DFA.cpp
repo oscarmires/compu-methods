@@ -147,6 +147,46 @@ public:
         return false;
     }
 
+
+    //escribe HTML 
+    vector<string> tokens;
+    vector<string> estados;
+    bool html =false;
+   
+    void writeHtml(string token, string estado){
+         tokens.push_back(token);
+         estados.push_back(estado);
+
+        ofstream fichero("datos.html");
+
+        if(html){
+
+            for(int i = 0; i!=tokens.size()-1; i++){
+                if(i ==0){
+                    fichero  <<"<!DOCTYPE html>" <<'\n'<<"<html>"<<'\n'<<'\t'<<"<title>Tokens</title>"<<'\n'<<'\t'<<"<link rel='stylesheet' href='styles.css'>"<< '\n' <<'\t' << "<body>"<< '\n'
+                    <<'\t' <<'\t' <<"<div class='" <<estados[i]<<"'>"<< '\n'<<'\t' <<'\t' <<'\t' <<"<p>"<<tokens[i] <<" "<<"</p>"<< '\n' <<'\t' <<'\t' <<"</div> "<< '\n' ;
+
+                }
+                else if(i==tokens.size()-2){
+                    fichero   <<'\t' <<'\t' <<"<div class='" <<estados[i]<<"'>"<< '\n'<<'\t' <<'\t' <<'\t' <<"<p>"<<tokens[i] <<" "<<"</p>"<< '\n' <<'\t' <<'\t' <<"</div> "<< '\n' 
+                    << '\n' <<'\t' << "<body>" << '\n' << "</html>";
+
+                }
+                else{
+                    fichero   <<'\t' <<'\t' <<"<div class='" <<estados[i]<<"'>"<< '\n'<<'\t' <<'\t' <<'\t' <<"<p>"<<tokens[i] <<" "<<"</p>"<< '\n' <<'\t' <<'\t' <<"</div> "<< '\n' ;
+                }
+           
+            }
+       
+            fichero.close();  
+
+        }
+
+     
+      
+    }
+   
+
     void exportToken(string &token) {
         /*
             Se utiliza al final de un token o al final de una línea
@@ -158,8 +198,10 @@ public:
 
         if (isReservedKeyword(token)) {
             cout << token << "\t\t\t\t" << "reserved-keyword" << endl;
+            writeHtml(token,"reserved-keyword");
         } else {
             cout << token << "\t\t\t\t" << this->stateNames[currentState] << endl;
+              writeHtml(token, this->stateNames[currentState]);
         }
         token = "";
         restart();
@@ -191,6 +233,7 @@ public:
         ifstream ficheroEntrada;
         string dato;
 
+
         ficheroEntrada.open(archivo, ios::in);
         if (ficheroEntrada.is_open()) {
             while (!ficheroEntrada.eof())
@@ -207,6 +250,8 @@ public:
                 cout << endl;
             }
             ficheroEntrada.close();
+            html = true;
+            writeHtml("token", "final");
         }
         else cout << "Fichero inexistente" << endl;
     }
