@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <unordered_map>
+#include <ctime>
 using namespace std;
 
 
@@ -140,6 +141,13 @@ public:
     }
 
     bool isReservedKeyword(string token) {
+        /*
+            Complejidad
+            Mejor caso: O(1)
+            Peor caso: O(n)
+        */
+
+
         // evalúa si la palabra que recibe es reservada
         for (string keyword : this->reservedKeywords) {
             if (token == keyword) return true;
@@ -154,26 +162,45 @@ public:
     bool html =false;
    
     void writeHtml(string token, string estado){
+
+        /*
+            Complejidad
+            Mejor caso: O(1)
+            Peor caso: O(n)
+        */
+
          tokens.push_back(token);
          estados.push_back(estado);
 
-        ofstream fichero("datos.html");
-
         if(html){
+
+            ofstream fichero("datos.html");            
 
             for(int i = 0; i!=tokens.size()-1; i++){
                 if(i ==0){
-                    fichero  <<"<!DOCTYPE html>" <<'\n'<<"<html>"<<'\n'<<'\t'<<"<title>Tokens</title>"<<'\n'<<'\t'<<"<link rel='stylesheet' href='styles.css'>"<< '\n' <<'\t' << "<body>"<< '\n'
-                    <<'\t' <<'\t' <<"<div class='" <<estados[i]<<"'>"<< '\n'<<'\t' <<'\t' <<'\t' <<"<p>"<<tokens[i] <<" "<<"</p>"<< '\n' <<'\t' <<'\t' <<"</div> "<< '\n' ;
-
+                    if (estados[i] == "break") {
+                        fichero  <<"<!DOCTYPE html>" <<'\n'<<"<html>"<<'\n'<<'\t'<<"<title>Tokens</title>"<<'\n'<<'\t'<<"<link rel='stylesheet' href='styles.css'>"<< '\n' <<'\t' << "<body>"<< '\n'
+                    <<'\t' <<'\t' << "<br>";
+                    } else {
+                        fichero  <<"<!DOCTYPE html>" <<'\n'<<"<html>"<<'\n'<<'\t'<<"<title>Tokens</title>"<<'\n'<<'\t'<<"<link rel='stylesheet' href='styles.css'>"<< '\n' <<'\t' << "<body>"<< '\n'
+                    <<'\t' <<'\t' <<"<div class='" <<estados[i]<<"'>"<< '\n'<<'\t' <<'\t' <<'\t' <<"<span>"<<tokens[i]<<"</span>"<< '\n' <<'\t' <<'\t' <<"</div> "<< '\n' ;
+                    }
                 }
                 else if(i==tokens.size()-2){
-                    fichero   <<'\t' <<'\t' <<"<div class='" <<estados[i]<<"'>"<< '\n'<<'\t' <<'\t' <<'\t' <<"<p>"<<tokens[i] <<" "<<"</p>"<< '\n' <<'\t' <<'\t' <<"</div> "<< '\n' 
+                    if (estados[i] == "break") {
+                        fichero   <<'\t' <<'\t' << "<br>";
+                    } else {
+                        fichero   <<'\t' <<'\t' <<"<div class='" <<estados[i]<<"'>"<< '\n'<<'\t' <<'\t' <<'\t' <<"<span>"<<tokens[i]<<"</span>"<< '\n' <<'\t' <<'\t' <<"</div> "<< '\n' 
                     << '\n' <<'\t' << "<body>" << '\n' << "</html>";
-
+                    }
                 }
                 else{
-                    fichero   <<'\t' <<'\t' <<"<div class='" <<estados[i]<<"'>"<< '\n'<<'\t' <<'\t' <<'\t' <<"<p>"<<tokens[i] <<" "<<"</p>"<< '\n' <<'\t' <<'\t' <<"</div> "<< '\n' ;
+                    if (estados[i] == "break") {
+                        fichero   << "<br>" << '\n' <<'\t' <<'\t' <<"</div> "<< '\n' ;
+
+                    } else {
+                        fichero   <<'\t' <<'\t' <<"<div class='" <<estados[i]<<"'>"<< '\n'<<'\t' <<'\t' <<'\t' <<"<span>"<<tokens[i]<<"</span>"<< '\n' <<'\t' <<'\t' <<"</div> "<< '\n' ;
+                    }
                 }
            
             }
@@ -209,6 +236,12 @@ public:
 
     void AnalisisCaracteres(string dato)
     {
+        /*
+            Complejidad
+            Mejor caso: O(1)
+            Peor caso: O(n)
+        */
+
         Rule r1;
         string token = "";
         for (int i = 0; i < dato.length(); i++) {	
@@ -220,14 +253,23 @@ public:
             this->currentState = r1.getNext();
             if (currentState != 0) {  // si ya comenzó token (esto para ignorar espacios previos)
                 token += dato[i];
+            } else {
+                writeHtml("&nbsp;", "space");
             }
         }
         
         // imprimir último token
         exportToken(token);
+        writeHtml("", "break");
     }
     
     void lexerAritmetico(string archivo) {
+        /*
+            Complejidad
+            Mejor caso: O(1)
+            Peor caso: O(n^2)
+        */
+
         // leer un código
 
         ifstream ficheroEntrada;
@@ -236,9 +278,6 @@ public:
 
         ficheroEntrada.open(archivo, ios::in);
         if (ficheroEntrada.is_open()) {
-            while (!ficheroEntrada.eof())
-            {
-
                 stringstream ss(dato);
 
                 while (getline(ficheroEntrada, dato))
@@ -248,36 +287,11 @@ public:
 
                 }
                 cout << endl;
-            }
             ficheroEntrada.close();
             html = true;
             writeHtml("token", "final");
         }
         else cout << "Fichero inexistente" << endl;
-    }
-
-    // Función para probar tokens individuales
-    void readSingleToken(string token) {
-        /*
-        token += ' ';
-        Rule currentRule;
-        for (char c : token) {
-            currentRule = rules.getRule(c, this->currentState);
-            if (currentRule.getNext() == 17) {
-                cout << token << "\t\terror" << endl;
-                this->restart();
-                return;
-            } else if (currentRule.getNext() == 18) {
-                cout << token << "\t\t" << stateNames[currentState] << endl;
-                this->restart();
-                return;
-            } else {
-                this->currentState = currentRule.getNext();
-            }
-        }
-        cout << token << "\t\t" << stateNames[currentState] << endl;
-        this->restart();
-        */
     }
 
     void restart() {
@@ -286,8 +300,13 @@ public:
 };
 
 int main() {
+    unsigned t0, t1;
+    t0 = clock();
     Automata automata;
     automata.loadRules("DFAtable.csv");
-    automata.lexerAritmetico("TextFile2.txt");
+    automata.lexerAritmetico("TextFile1.txt");
+    t1 = clock();
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    cout << "Execution Time: " << time << "s" << endl;
     return 0;
 }

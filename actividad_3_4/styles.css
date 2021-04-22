@@ -14,7 +14,16 @@ body {
     background-color: black;
 }
 
-.integer {
+div {
+    display: inline;
+}
+
+span {
+    float: left;
+}
+
+.integer,
+.real {
     color: #ffe119;
 }
 

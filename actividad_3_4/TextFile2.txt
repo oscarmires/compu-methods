@@ -1,6 +1,6 @@
 1001
 #t #f
-'palabra
+    'palabra
 = + - * / ^
 var
 ( )
