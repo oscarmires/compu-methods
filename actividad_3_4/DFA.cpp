@@ -91,6 +91,9 @@ public:
             return this->rules[character][currentState];
         } else {
             // si no existe, devolver regla error
+            if (currentState == 14) {
+                return Rule(character, currentState, 14);
+            }
             return Rule(character, currentState, 17);
         }
     }
