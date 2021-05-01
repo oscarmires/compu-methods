@@ -13,5 +13,7 @@ Un ejemplo de un acercamiento a responder estas preguntas es la Tésis de Church
 
 ## Referencias
 Sudkamp, T. (2016). Languages and machines: an introduction to the theory of computer science. Estados Unidos: Pearson.
+
 Fenández, G. (2004). Representación del conocimiento en sistemas inteligentes. 3.7.3. Compleción y decidibilidad. Recuperado el 30 de abril de 2021 de http://dit.upm.es/~gfer/ssii/rcsi/rcsisu32.html
+
 UCM (s. f.). Lógica y computabilidad. Autómatas y Computabilidad. Decidibilidad. Pág. 63. Recuperado el 30 de abril de 2021 de https://webs.ucm.es/info/pslogica/automatas.pdf
