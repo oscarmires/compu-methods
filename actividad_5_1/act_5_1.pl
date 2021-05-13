@@ -4,10 +4,25 @@
  */
 
 % 2
+vowel(a).
+vowel(e).
+vowel(i).
+vowel(o).
+vowel(u).
 
+deconsonant([H|T]):-
+    (   vowel(H) ->  
+        writeln(H),
+        deconsonant(T);
+        deconsonant(T)
+    ).
 
 % 5
-
+last([], _):-
+    fail.
+last([H], H). 
+last([_|T], U):-
+    last(T, U).
 
 % 6
 
