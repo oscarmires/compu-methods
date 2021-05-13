@@ -25,6 +25,14 @@ last([_|T], U):-
     last(T, U).
 
 % 6
+max([H,T],U):-
+    H  > T,
+    U is H.
+max([H,T],U):-
+    T > H,
+    U is T.
+
+
 
 
 % 7
@@ -42,6 +50,11 @@ length2([_|T], L):-
     L is L_1 + 1.
 
 % 10
+power([H,T],U):-
+    U is H**T.
+power([_,0],0).
+power([H,1],H).
+
 
 
 % 16
