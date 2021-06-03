@@ -7,7 +7,6 @@
 #include <ctime>
 using namespace std;
 
-
 class Debugger {
 private:
     ofstream debugOutput;
@@ -158,9 +157,11 @@ private:
         "false"
     };
     string reservedKeywords[1] {"define"};
+    Debugger* debugger;
 public:
-    Automata() {
+    Automata(Debugger* d) {
         this->currentState = 0;
+        this->debugger = d;
     }
 
     void loadRules(string path) {
@@ -272,6 +273,8 @@ public:
             Peor caso: O(n)
         */
 
+        debugger->write(dato);
+
         Rule r1;
         string token = "";
         for (int i = 0; i < dato.length(); i++) {	
@@ -302,6 +305,8 @@ public:
 
         // leer un código
 
+        debugger->write("Entered function lexerAritmetico.");
+
         this->exportFileName = "highlighted-" + archivo + ".html";
 
         ifstream ficheroEntrada;
@@ -309,6 +314,9 @@ public:
 
         string fileToOpen = "scripts/" + archivo + ".txt";
         ficheroEntrada.open(fileToOpen, ios::in);
+
+        debugger->write("Opened input script file.");
+
         if (ficheroEntrada.is_open()) {
                 stringstream ss(dato);
 
@@ -320,6 +328,9 @@ public:
                 }
                 cout << endl;
             ficheroEntrada.close();
+
+            debugger->write("Closed input script file.");
+
             html = true;
             writeHtml("token", "final");
         }
@@ -333,13 +344,24 @@ public:
 
 int main(int argc, char const *argv[]) {
 
-    Debugger debugger;
+    Debugger* debugger = new Debugger;
+    debugger->write("Begin execution.");
 
     unsigned t0, t1;
     t0 = clock();
-    Automata automata;
+
+    debugger->write("C++ clock initialized.");
+
+    Automata automata(debugger);
     automata.loadRules("DFAtable.csv");
+
+    debugger->write("Transitions load complete.");
+
     automata.lexerAritmetico(argv[2]);
+
+    debugger->write("function lexerAritmetico finalized.");
+    debugger->close();
+
     t1 = clock();
     double time = (double(t1-t0)/CLOCKS_PER_SEC);
     cout << "Execution Time: " << time << "s" << endl;

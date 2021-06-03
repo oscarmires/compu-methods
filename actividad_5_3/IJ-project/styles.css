@@ -1,0 +1,60 @@
+/*Colors
+    num: #ffe119
+    log: #4363d8
+    sym: #469990
+    ope: #911eb4
+    ide: #3cb44b
+    spe: #9A6324
+    com: #808000
+    res: #f032e6
+    err: #e6194B
+*/
+
+body {
+    background-color: black;
+}
+
+div {
+    display: inline;
+}
+
+span {
+    float: left;
+}
+
+.integer,
+.real {
+    color: #ffe119;
+}
+
+.true, .false {
+    color: #4363d8;
+}
+
+.symbol {
+    color: #469990;
+}
+
+.assignment, .addition, .subtraction, .multiplication, .division, .power {
+    color: #911eb4;
+}
+
+.variable {
+    color: #3cb44b;
+}
+
+.open-parenthesis, .close-parenthesis {
+    color: #9A6324;
+}
+
+.comment {
+    color: #808000;
+}
+
+.reserved-keyword {
+    color: #f032e6;
+}
+
+.error {
+    color: #e6194B;
+}
