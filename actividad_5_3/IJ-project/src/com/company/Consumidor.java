@@ -35,7 +35,7 @@ public class Consumidor extends Thread {
             }
 
             almacen.addTiempo(this.id, System.currentTimeMillis() - this.tiempo);
-            System.out.println("Max time after [" + this.id + "]: " + almacen.getMaxTime() + "ms");
+            // System.out.println("Max time after [" + this.id + "]: " + almacen.getMaxTime() + "ms");
             /*
             almacen.addTiempo(this.id, System.currentTimeMillis() - this.tiempo);
             System.out.println("Max time for [" + this.id + "]: " + almacen.getMaxTime() + "ms");

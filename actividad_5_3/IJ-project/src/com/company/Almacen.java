@@ -3,13 +3,11 @@ package com.company;
 public class Almacen {
     private String[] espacio;
     private int ocupados = 0;
-    private int numConsumidores;
     private boolean producing = true;
     private long[] tiempos;
 
     Almacen(int numConsumidores) {
         this.espacio = new String[5]; // 0 = nulo
-        this.numConsumidores = numConsumidores;
         for (int i = 0; i < this.espacio.length; i++) {
             this.espacio[i] = "";
         }
